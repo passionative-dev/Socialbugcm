@@ -16,10 +16,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $this->content_only = true;
     }
 
-    protected function buildContainer()
-    {
-    }
-
     public function checkAccess()
     {
         $headers = WebserviceRequest::getallheaders();
@@ -40,18 +36,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
     public function postProcess()
     {
         return false;
-    }
-
-    public function display()
-    {
-    }
-
-    public function setMedia()
-    {
-    }
-
-    public function initHeader()
-    {
     }
 
     public function initContent()
@@ -86,14 +70,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         header('HTTP/1.1 401 Unauthorized');
         die;
-    }
-
-    public function initFooter()
-    {
-    }
-
-    protected function redirect()
-    {
     }
 
     public function helloWorldAction()
