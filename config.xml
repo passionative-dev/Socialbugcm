@@ -2,7 +2,7 @@
 <module>
     <name>socialbugcrm</name>
     <displayName><![CDATA[SocialBugCRM]]></displayName>
-    <version><![CDATA[1.0.3]]></version>
+    <version><![CDATA[1.0.4]]></version>
     <description><![CDATA[Integration module to connect with SocialBugCRM platform.]]></description>
     <author><![CDATA[SocialBug Team]]></author>
     <tab><![CDATA[others]]></tab>
