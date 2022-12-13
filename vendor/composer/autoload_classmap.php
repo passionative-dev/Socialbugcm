@@ -935,7 +935,7 @@ return array(
     'Psr\\Log\\Test\\LoggerInterfaceTest' => $vendorDir . '/psr/log/Psr/Log/Test/LoggerInterfaceTest.php',
     'Psr\\Log\\Test\\TestLogger' => $vendorDir . '/psr/log/Psr/Log/Test/TestLogger.php',
     'ReturnTypeWillChange' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
-    'Socialbugcrm' => $baseDir . '/socialbugcrm.php',
+    'SocialBugCRM' => $baseDir . '/socialbugcrm.php',
     'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
     'Symfony\\Component\\Cache\\Adapter\\AbstractAdapter' => $vendorDir . '/symfony/cache/Adapter/AbstractAdapter.php',
     'Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter' => $vendorDir . '/symfony/cache/Adapter/AbstractTagAwareAdapter.php',
