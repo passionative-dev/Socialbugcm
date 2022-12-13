@@ -198,7 +198,7 @@ class Socialbugcrm extends Module
                     'module' => 'socialbugcrm',
                     'controller' => 'api',
                 ],
-            ]
+            ],
         ];
     }
 
@@ -306,14 +306,9 @@ class Socialbugcrm extends Module
                             'tosLink' => $this->getTosLink($this->context->language->iso_code),
                             'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
                         ]),
-                        [
-                            // 'quantity' => 15000,
-                            // 'isSandbox' => true,
-                            // 'planIdSelected' => null,
-                            // 'byPassSelection' => true,
-                        ],
+                        [],
                     )
-                ]
+                ],
             ]);
 
             $this->context->smarty->assign('pathVendor', $this->getPathUri() . 'views/js/chunk-vendors-socialbugcrm.' . $this->version . '.js');
