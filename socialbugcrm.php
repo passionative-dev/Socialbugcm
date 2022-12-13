@@ -93,7 +93,6 @@ class Socialbugcrm extends Module
             || !Configuration::updateValue('SOCIALBUGCRM_AppendHtml', '')
 
             || !$this->getService('ps_accounts.installer')->install()
-
         ) {
             return false;
         }
@@ -218,7 +217,7 @@ class Socialbugcrm extends Module
     {
         $output = null;
 
-        if (Tools::isSubmit('submit'.$this->name)) {
+        if (Tools::isSubmit('submit' . $this->name)) {
             $apiKey = Configuration::get('SOCIALBUGCRM_ApiKey');
             $salt = Configuration::get('SOCIALBUGCRM_Salt');
             $userId = Configuration::get('SOCIALBUGCRM_UserId');
@@ -247,7 +246,7 @@ class Socialbugcrm extends Module
             $back = 'https://socialbugcrm.sb-affiliate.com';
             $path = '/api/gateway/stores/public/installation/prestashop/Install/11?authorization_code=';
 
-            Tools::redirectLink($back.$path.$apiKey.'&site='._PS_BASE_URL_);
+            Tools::redirectLink($back . $path . $apiKey . '&site=' . _PS_BASE_URL_);
         }
 
         $accountsInstaller = $this->getService('ps_accounts.installer');
@@ -296,23 +295,23 @@ class Socialbugcrm extends Module
                 'storePsSocialbugcrm' => [
                     'context' => array_merge(
                         $billingFacade->present([
-                        'versionPs' => _PS_VERSION_,
-                        'versionModule' => $this->version,
-                        'moduleName' => $this->name,
-                        'emailSupport' => $this->emailSupport,
-                        'ipAddress' => (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '',
-                        'sandbox' => true,
-                        'billingEnv' => 'preprod',
-                        'logo' => $partnerLogo,
-                        'tosLink' => $this->getTosLink($this->context->language->iso_code),
-                        'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
-                    ]),
+                            'versionPs' => _PS_VERSION_,
+                            'versionModule' => $this->version,
+                            'moduleName' => $this->name,
+                            'emailSupport' => $this->emailSupport,
+                            'ipAddress' => (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '',
+                            'sandbox' => true,
+                            'billingEnv' => 'preprod',
+                            'logo' => $partnerLogo,
+                            'tosLink' => $this->getTosLink($this->context->language->iso_code),
+                            'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
+                        ]),
                         [
                             // 'quantity' => 15000,
                             // 'isSandbox' => true,
                             // 'planIdSelected' => null,
                             // 'byPassSelection' => true,
-                        ]
+                        ],
                     )
                 ]
             ]);
@@ -358,9 +357,9 @@ class Socialbugcrm extends Module
         $helper->module = $this;
         $helper->name_controller = $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
+        $helper->currentIndex = AdminController::$currentIndex . '&configure=' . $this->name;
 
-        $helper->submit_action = 'submit'.$this->name;
+        $helper->submit_action = 'submit' . $this->name;
 
         return $helper->generateForm($fields_form);
     }
