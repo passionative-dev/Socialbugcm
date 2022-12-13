@@ -4,7 +4,6 @@
  * @copyright 2020 Km Innovations Inc DBA SocialBug
  * @license https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -311,7 +310,7 @@ class Socialbugcrm extends Module
                             'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
                         ]),
                         [],
-                    )
+                    ),
                 ],
             ]);
 
