@@ -221,7 +221,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $result = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
 				SELECT `id_address`
 				FROM `'._DB_PREFIX_.'address`
-				WHERE `id_customer` = '.(int)$id_customer.' AND `deleted` = 0 AND `alias` = "'.pSQL($alias).'"');
+				WHERE `id_customer` = '.(int)$id_customer.' AND `deleted` = 0 AND `alias` = \''.pSQL($alias).'\'');
 
         return $result;
     }
@@ -351,17 +351,17 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $addresses = $customer->getSimpleAddresses();
         foreach ($addresses as $address) {
-            if ($address['alias'] == "Default"
+            if ($address['alias'] == 'Default'
             && $address['firstname'] == $addr['FirstName']
             && $address['lastname'] == $addr['LastName']
-            && $address['company'] == (empty($addr['Company']) ? "" : $addr['Company'])
+            && $address['company'] == (empty($addr['Company']) ? '' : $addr['Company'])
             && $address['id_country'] == (empty($addr['CountryId']) ? 0 : $addr['CountryId'])
             && $address['id_state'] == (empty($addr['StateProvinceId']) ? 0 : $addr['StateProvinceId'])
-            && $address['city'] == (empty($addr['City']) ? "" : $addr['City'])
-            && $address['address1'] == (empty($addr['Address1']) ? "" : $addr['Address1'])
-            && $address['address2'] == (empty($addr['Address2']) ? "" : $addr['Address2'])
-            && $address['postcode'] == (empty($addr['ZipPostalCode']) ? "" : $addr['ZipPostalCode'])
-            && $address['phone'] == (empty($addr['PhoneNumber']) ? "" : $addr['PhoneNumber'])) {
+            && $address['city'] == (empty($addr['City']) ? '' : $addr['City'])
+            && $address['address1'] == (empty($addr['Address1']) ? '' : $addr['Address1'])
+            && $address['address2'] == (empty($addr['Address2']) ? '' : $addr['Address2'])
+            && $address['postcode'] == (empty($addr['ZipPostalCode']) ? '' : $addr['ZipPostalCode'])
+            && $address['phone'] == (empty($addr['PhoneNumber']) ? '' : $addr['PhoneNumber'])) {
                 return $address['id'];
             }
         }
