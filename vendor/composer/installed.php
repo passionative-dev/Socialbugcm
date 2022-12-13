@@ -3,7 +3,7 @@
         'name' => 'prestashop/socialbugcrm',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '53c19a3e8845d810823ea6a1085026224f16a811',
+        'reference' => '0889a82f0f1e72ba0d70cf3e64a74a6da0a95564',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -166,7 +166,7 @@
         'prestashop/socialbugcrm' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '53c19a3e8845d810823ea6a1085026224f16a811',
+            'reference' => '0889a82f0f1e72ba0d70cf3e64a74a6da0a95564',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
