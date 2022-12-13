@@ -52,12 +52,6 @@ final class ListDocumentGenerator
             }
         );
 
-        $documentation = <<<'RST'
-=======================
-List of Available Rules
-=======================
-
-RST;
         foreach ($fixers as $fixer) {
             $name = $fixer->getName();
             $definition = $fixer->getDefinition();
