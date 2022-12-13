@@ -18,7 +18,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     protected function buildContainer()
     {
-        return;
+        $this->content_only = true;
     }
 
     public function checkAccess()
