@@ -7,7 +7,8 @@
 
 namespace MyCompany\socialbugcrm;
 
-class SocialBugCRMService {
+class SocialBugCRMService
+{
     /** @var TranslatorInterface */
     private $translator;
 
@@ -28,7 +29,8 @@ class SocialBugCRMService {
     /**
      * @return string
      */
-    public function getTranslatedCustomMessage() {
+    public function getTranslatedCustomMessage()
+    {
         // return $this->translator->trans($this->customMessage, [], 'Modules.socialbugcrm');
         return $this->customMessage;
     }

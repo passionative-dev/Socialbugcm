@@ -16,7 +16,7 @@ class SocialBugCRMController extends FrameworkBundleAdminController
         // $yourService = $this->get('mycompany.socialbugcrm.socialbugcrmservice');
 
         // return $this->render('@Modules/socialbugcrm/views/templates/admin/socialbugcrm.tpl', [
-            // 'customMessage' => $yourService->getTranslatedCustomMessage(),
+        // 'customMessage' => $yourService->getTranslatedCustomMessage(),
         // ]);
     }
 }

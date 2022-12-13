@@ -24,7 +24,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     public function checkAccess()
     {
         $headers = WebserviceRequest::getallheaders();
-        
+
         if (!isset($headers['Api-Key'])) {
             return false;
         }
@@ -79,12 +79,11 @@ class SocialbugcrmApiModuleFrontController extends Controller
             if (isset($action_list[$module_action])) {
                 $action = $action_list[$module_action];
             }
-
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
         }
     }
-    
+
     public function initCursedPage()
     {
         header('HTTP/1.1 401 Unauthorized');
@@ -272,7 +271,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
             }
             fclose($postresource);
         }
-        
+
         if (isset($input_json)) {
             $data = json_decode($input_json, 1);
             $data = $data['Customer'];
@@ -385,7 +384,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $address->address2 = $addr['Address2'];
         $address->postcode = $addr['ZipPostalCode'];
         $address->phone = $addr['PhoneNumber'];
-        
+
         if ($customerId != null) {
             $address->id_customer = $customerId;
         }

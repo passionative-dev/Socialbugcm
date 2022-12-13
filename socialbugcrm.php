@@ -15,7 +15,7 @@ use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleNotInstalledExcepti
 
 class Socialbugcrm extends Module
 {
-    const DEFAULT_SALT = '$alt';
+    public const DEFAULT_SALT = '$alt';
 
     private $emailSupport;
 
@@ -72,16 +72,12 @@ class Socialbugcrm extends Module
     }
 
     public function install()
-
     {
-
         if (Shop::isFeatureActive()) {
-
-                Shop::setContext(Shop::CONTEXT_ALL);
-
+            Shop::setContext(Shop::CONTEXT_ALL);
         }
 
- 
+
 
         if (!parent::install()
 
@@ -102,15 +98,12 @@ class Socialbugcrm extends Module
             || !$this->getService('ps_accounts.installer')->install()
 
         ) {
-
-                return false;
-
+            return false;
         }
 
- 
+
 
         return true;
-
     }
 
     public function uninstall()
@@ -122,7 +115,7 @@ class Socialbugcrm extends Module
             || !Configuration::deleteByName('SOCIALBUGCRM_UserId')
             || !Configuration::deleteByName('SOCIALBUGCRM_AppendHtml')
         ) {
-                return false;
+            return false;
         }
 
         return true;
@@ -176,13 +169,13 @@ class Socialbugcrm extends Module
         if ($this->context->customer->isLogged(true)) {
             $salt = Configuration::get('SOCIALBUGCRM_Salt');
             $userId = $this->context->customer->id;
-    
+
             $str = $userId.$salt;
             $customerId = $userId.'~'.md5($str);
         }
-    
+
         $appendHtml = str_replace("%customerId%", $customerId, $appendHtml);
-    
+
         $this->context->controller->registerJavascript(
             sha1($appendHtml),
             $appendHtml,
@@ -238,7 +231,7 @@ class Socialbugcrm extends Module
             if ($salt == null) {
                 $userId = $this->context->employee->id;
                 $salt = $this->generateRandomString();
-                
+
                 $r1 = mt_rand(0, 65535);
                 $r2 = mt_rand(0, 65535);
                 $r3 = mt_rand(0, 65535);
@@ -265,92 +258,92 @@ class Socialbugcrm extends Module
         $accountsInstaller = $this->getService('ps_accounts.installer');
         $accountsInstaller->install();
 
-            $output = '';
+        $output = '';
 
-            try {
-                    // retrieve the value set by the user
-                $configValue = (string) Tools::getValue('MYMODULE_CONFIG');
-        
-                // check that the value is valid
-                if (empty($configValue) || !Validate::isGenericName($configValue)) {
-                    // invalid value, show an error
-                    $output = $this->displayError($this->l('Invalid Configuration value'));
-                } else {
-                    // value is ok, update it and display a confirmation message
-                    Configuration::updateValue('MYMODULE_CONFIG', $configValue);
-                    $output = $this->displayConfirmation($this->l('Settings updated'));
-                }
+        try {
+            // retrieve the value set by the user
+            $configValue = (string) Tools::getValue('MYMODULE_CONFIG');
 
-                $accountsFacade = $this->getService('ps_accounts.facade');
-                $accountsService = $accountsFacade->getPsAccountsService();
-                Media::addJsDef([
-                    'contextPsAccounts' => $accountsFacade->getPsAccountsPresenter()
-                        ->present($this->name),
-                ]);
+            // check that the value is valid
+            if (empty($configValue) || !Validate::isGenericName($configValue)) {
+                // invalid value, show an error
+                $output = $this->displayError($this->l('Invalid Configuration value'));
+            } else {
+                // value is ok, update it and display a confirmation message
+                Configuration::updateValue('MYMODULE_CONFIG', $configValue);
+                $output = $this->displayConfirmation($this->l('Settings updated'));
+            }
 
-                // Retrieve Account CDN
-                $this->context->smarty->assign('urlAccountsCdn', $accountsService->getAccountsCdn());
+            $accountsFacade = $this->getService('ps_accounts.facade');
+            $accountsService = $accountsFacade->getPsAccountsService();
+            Media::addJsDef([
+                'contextPsAccounts' => $accountsFacade->getPsAccountsPresenter()
+                    ->present($this->name),
+            ]);
 
-                $billingFacade = $this->getService('ps_billings.facade');
-                $partnerLogo = $this->getLocalPath() . 'views/img/partnerLogo.png';
+            // Retrieve Account CDN
+            $this->context->smarty->assign('urlAccountsCdn', $accountsService->getAccountsCdn());
 
-                // Billing
-                Media::addJsDef($billingFacade->present([
-                    'sandbox' => true,
-                    'billingEnv' => 'preprod',
-                    'logo' => $partnerLogo,
-                    'tosLink' => $this->getTosLink($this->context->language->iso_code),
-                    'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
-                    'emailSupport' => $this->emailSupport,
-                ]));
+            $billingFacade = $this->getService('ps_billings.facade');
+            $partnerLogo = $this->getLocalPath() . 'views/img/partnerLogo.png';
 
-                Media::addJsDef([
-                    'storePsSocialbugcrm' => [
-                        'context' => array_merge($billingFacade->present([
-                            'versionPs' => _PS_VERSION_,
-                            'versionModule' => $this->version,
-                            'moduleName' => $this->name,
-                            'emailSupport' => $this->emailSupport,
-                            'ipAddress' => (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '',
-                            'sandbox' => true,
-                            'billingEnv' => 'preprod',
-                            'logo' => $partnerLogo,
-                            'tosLink' => $this->getTosLink($this->context->language->iso_code),
-                            'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
-                        ]),
+            // Billing
+            Media::addJsDef($billingFacade->present([
+                'sandbox' => true,
+                'billingEnv' => 'preprod',
+                'logo' => $partnerLogo,
+                'tosLink' => $this->getTosLink($this->context->language->iso_code),
+                'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
+                'emailSupport' => $this->emailSupport,
+            ]));
+
+            Media::addJsDef([
+                'storePsSocialbugcrm' => [
+                    'context' => array_merge(
+                        $billingFacade->present([
+                        'versionPs' => _PS_VERSION_,
+                        'versionModule' => $this->version,
+                        'moduleName' => $this->name,
+                        'emailSupport' => $this->emailSupport,
+                        'ipAddress' => (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '',
+                        'sandbox' => true,
+                        'billingEnv' => 'preprod',
+                        'logo' => $partnerLogo,
+                        'tosLink' => $this->getTosLink($this->context->language->iso_code),
+                        'privacyLink' => $this->getPrivacyLink($this->context->language->iso_code),
+                    ]),
                         [
                             // 'quantity' => 15000,
                             //'isSandbox' => true,
                             // 'planIdSelected' => null,
                             // 'byPassSelection' => true,
                         ]
-                        )
-                    ]
-                ]);
+                    )
+                ]
+            ]);
 
-                $this->context->smarty->assign('pathVendor', $this->getPathUri() . 'views/js/chunk-vendors-socialbugcrm.' . $this->version . '.js');
-                $this->context->smarty->assign('pathApp', $this->getPathUri() . 'views/js/app-socialbugcrm.' . $this->version . '.js');
-    
-                // Load service for PsBilling
-                $billingService = $this->getService('ps_billings.service');
+            $this->context->smarty->assign('pathVendor', $this->getPathUri() . 'views/js/chunk-vendors-socialbugcrm.' . $this->version . '.js');
+            $this->context->smarty->assign('pathApp', $this->getPathUri() . 'views/js/app-socialbugcrm.' . $this->version . '.js');
 
-                // Retrieve the customer
-                $customer = $billingService->getCurrentCustomer();
+            // Load service for PsBilling
+            $billingService = $this->getService('ps_billings.service');
 
-                // Retrieve the subscritpion for this module
-                $subscription = $billingService->getCurrentSubscription();
+            // Retrieve the customer
+            $customer = $billingService->getCurrentCustomer();
 
-                // Retrieve the list and description for module plans
-                $plans = $billingService->getModulePlans();
-                $this->context->smarty->assign('customer', $customer);
-                $this->context->smarty->assign('subscription', $subscription);
-                $this->context->smarty->assign('plans', $plans);
+            // Retrieve the subscritpion for this module
+            $subscription = $billingService->getCurrentSubscription();
 
-            } catch (Exception $e) {
-                $this->context->controller->errors[] = $e->getMessage();
+            // Retrieve the list and description for module plans
+            $plans = $billingService->getModulePlans();
+            $this->context->smarty->assign('customer', $customer);
+            $this->context->smarty->assign('subscription', $subscription);
+            $this->context->smarty->assign('plans', $plans);
+        } catch (Exception $e) {
+            $this->context->controller->errors[] = $e->getMessage();
 
-                return '';
-            }
+            return '';
+        }
         return $this->context->smarty->fetch($this->template_dir . 'socialbugcrm.tpl');
     }
 
