@@ -80,7 +80,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
                 $action = $action_list[$module_action];
             }
 
-            $this->$action();
         } catch (Exception $e) {
             header('HTTP/1.1 500 Internal Server Error');
         }
@@ -264,6 +263,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $input_json = null;
         $id_lang = $this->context->language->id;
+        $found_customer= null;
 
         if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             $postresource = fopen("php://input", "r");
