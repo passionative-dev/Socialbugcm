@@ -170,8 +170,8 @@ class Socialbugcrm extends Module
             $salt = Configuration::get('SOCIALBUGCRM_Salt');
             $userId = $this->context->customer->id;
 
-            $str = $userId.$salt;
-            $customerId = $userId.'~'.md5($str);
+            $str = $userId . $salt;
+            $customerId = $userId . '~' . md5($str);
         }
 
         $appendHtml = str_replace('%customerId%', $customerId, $appendHtml);
@@ -179,7 +179,7 @@ class Socialbugcrm extends Module
         $this->context->controller->registerJavascript(
             sha1($appendHtml),
             $appendHtml,
-            ['position' => 'bottom', 'priority' => 100, 'server' => 'remote',]
+            ['position' => 'bottom', 'priority' => 100, 'server' => 'remote'],
         );
     }
 
