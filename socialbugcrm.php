@@ -19,6 +19,12 @@ class Socialbugcrm extends Module
 
     private $emailSupport;
 
+    private $uri_path;
+
+    private $images_dir;
+
+    private $template_dir;
+
     /**
      * @var ServiceContainer
      */
@@ -35,10 +41,6 @@ class Socialbugcrm extends Module
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => '1.7.8.9');
         $this->bootstrap = true;
         $this->module_key = '4a59708648875ef40ba62e900aafd024';
-
-        $this->uri_path = null;
-        $this->images_dir = null;
-        $this->template_dir = null;
 
         parent::__construct();
 
@@ -181,13 +183,11 @@ class Socialbugcrm extends Module
     
         $appendHtml = str_replace("%customerId%", $customerId, $appendHtml);
     
-        if (isset($appendHtml) && $appendHtml != false) {
-            $this->context->controller->registerJavascript(
-                sha1($appendHtml),
-                $appendHtml,
-                array('position' => 'bottom', 'priority' => 100, 'server' => 'remote')
-            );
-        }
+        $this->context->controller->registerJavascript(
+            sha1($appendHtml),
+            $appendHtml,
+            array('position' => 'bottom', 'priority' => 100, 'server' => 'remote')
+        );
     }
 
     public function hookModuleRoutes()
