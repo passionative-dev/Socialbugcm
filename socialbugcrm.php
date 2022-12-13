@@ -6,6 +6,7 @@
  */
 
 if (!defined('_PS_VERSION_')) {
+    
     exit;
 }
 
@@ -123,11 +124,14 @@ class Socialbugcrm extends Module
     public function getTosLink($iso_lang)
     {
         switch ($iso_lang) {
+
             case 'fr':
                 $url = 'https://socialbug.io/conditions-of-use';
+
                 break;
             default:
                 $url = 'https://socialbug.io/conditions-of-use';
+
                 break;
         }
 
@@ -142,11 +146,14 @@ class Socialbugcrm extends Module
     public function getPrivacyLink($iso_lang)
     {
         switch ($iso_lang) {
+            
             case 'fr':
                 $url = 'https://socialbug.io/privacy-notice';
+
                 break;
             default:
                 $url = 'https://socialbug.io/privacy-notice';
+
                 break;
         }
 
@@ -344,7 +351,7 @@ class Socialbugcrm extends Module
                 'title' => $this->l('Launch App'),
                 'class' => 'btn btn-default pull-left',
                 'icon' => 'process-icon-refresh',
-            ]
+            ],
         ];
 
         $helper = new HelperForm();
