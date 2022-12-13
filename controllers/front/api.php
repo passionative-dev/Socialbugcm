@@ -4,7 +4,6 @@
  * @copyright 2019 KM Innovations Inc
  * @license https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 use PrestaShop\PrestaShop\Adapter\ContainerBuilder;
 
 class SocialbugcrmApiModuleFrontController extends Controller
@@ -67,14 +66,14 @@ class SocialbugcrmApiModuleFrontController extends Controller
         try {
             $module_action = Tools::getValue('module_action');
 
-            $action_list = array(
+            $action_list = [
                 'HelloWorld' => 'helloWorldAction',
                 'GetStoreInfo' => 'getStoreInfoAction',
                 'PostStoreInfo' => 'postStoreInfoAction',
                 'PostSalt' => 'postSaltAction',
                 'GetCustomerByEmail' => 'getCustomerByEmailAction',
-                'AddCustomer' => 'postAddCustomerAction'
-            );
+                'AddCustomer' => 'postAddCustomerAction',
+            ];
 
             if (isset($action_list[$module_action])) {
                 $action = $action_list[$module_action];
@@ -87,6 +86,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     public function initCursedPage()
     {
         header('HTTP/1.1 401 Unauthorized');
+
         die;
     }
 
@@ -109,7 +109,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $userId = Configuration::get('SOCIALBUGCRM_UserId');
 
-        $integration = array();
+        $integration = [];
 
         $integration['ApiKey'] = Configuration::get('SOCIALBUGCRM_ApiKey');
         $integration['Salt'] = Configuration::get('SOCIALBUGCRM_Salt');
@@ -124,14 +124,13 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $integration['LastName'] = $employee->lastname;
 
         echo json_encode($integration);
-        //die(Tools::jsonEncode($integration));
     }
 
     public function postStoreInfoAction()
     {
         $input_data = null;
 
-        if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $postresource = fopen('php://input', 'r');
             while ($postData = fread($postresource, 1024)) {
                 $input_data .= $postData;
@@ -157,7 +156,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $input_data = null;
 
-        if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $postresource = fopen('php://input', 'r');
             while ($postData = fread($postresource, 1024)) {
                 $input_data .= $postData;
@@ -181,7 +180,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     public function getCustomerByEmailAction()
     {
-        $email = (string)Tools::getValue('email', false);
+        $email = Tools::getValue('email', false);
         $id_lang = $this->context->language->id;
 
         $customer = new Customer();
@@ -219,9 +218,9 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
 
         $result = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
-				SELECT `id_address`
-				FROM `'._DB_PREFIX_.'address`
-				WHERE `id_customer` = '.(int)$id_customer.' AND `deleted` = 0 AND `alias` = \''.pSQL($alias).'\'');
+            SELECT `id_address`
+            FROM `' . _DB_PREFIX_ . 'address`
+            WHERE `id_customer` = ' . $id_customer . ' AND `deleted` = 0 AND `alias` = `' . pSQL($alias) . '`');
 
         return $result;
     }
@@ -230,7 +229,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $customerData = new stdClass();
         $customerData->CustomerId = (int)$customer->id;
-        $customerData->UserName = $customer->firstname.' '.$customer->lastname;
+        $customerData->UserName = $customer->firstname . ' ' . $customer->lastname;
         $customerData->Email = $customer->email;
         $customerData->BillingAddress = $this->makeAddressData($id_billing_address, $customer->email, $id_lang);
         $customerData->ShippingAddress = $this->makeAddressData($id_shipping_address, $customer->email, $id_lang);
@@ -241,14 +240,14 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     private function makeAddressData($id_address, $email, $id_lang)
     {
-        $address = new Address((int)$id_address, $id_lang);
+        $address = new Address($id_address, $id_lang);
         $addressData = new stdClass();
         $addressData->FirstName = $address->firstname;
         $addressData->LastName = $address->lastname;
         $addressData->Email = $email;
         $addressData->Company = $address->company;
-        $addressData->CountryId =(int)$address->id_country;
-        $addressData->StateProvinceId = (int)$address->id_state;
+        $addressData->CountryId =$address->id_country;
+        $addressData->StateProvinceId = $address->id_state;
         $addressData->City = $address->city;
         $addressData->Address1 = $address->address1;
         $addressData->Address2 = $address->address2;
@@ -262,9 +261,9 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         $input_json = null;
         $id_lang = $this->context->language->id;
-        $found_customer= null;
+        $found_customer = null;
 
-        if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $postresource = fopen('php://input', 'r');
             while ($postData = fread($postresource, 1024)) {
                 $input_json .= $postData;
