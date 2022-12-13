@@ -42,9 +42,9 @@ class Socialbugcrm extends Module
         $this->description = $this->l('Integration module to connect with SocialBugCRM platform.');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
-        $this->uri_path = Tools::substr($this->context->link->getBaseLink(null, null, true), 0, -1);
-        $this->images_dir = $this->uri_path . $this->getPathUri() . 'views/img/';
-        $this->template_dir = $this->getLocalPath() . 'views/templates/admin/';
+        $this->uri_path = $this->l(Tools::substr($this->context->link->getBaseLink(null, null, true), 0, -1));
+        $this->images_dir = $this->l($this->uri_path . $this->getPathUri() . 'views/img/');
+        $this->template_dir = $this->l($this->getLocalPath() . 'views/templates/admin/');
 
     }
 
