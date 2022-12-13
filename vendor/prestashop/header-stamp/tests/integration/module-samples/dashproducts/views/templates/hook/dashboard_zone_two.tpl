@@ -32,7 +32,6 @@
 
 	<section id="dashproducts_config" class="dash_config hide">
 		<header><i class="icon-wrench"></i> {l s='Configuration' d='Admin.Global'}</header>
-		{$dashproducts_config_form}
 	</section>
 
 	<section>
