@@ -1,8 +1,8 @@
 <?php
-// modules/socialbugcrm/src/SocialBugCRMService.php
+/** modules/socialbugcrm/src/SocialBugCRMService.php */
 namespace MyCompany\socialbugcrm;
 
-// use Symfony\Component\Translation\TranslatorInterface;
+/** use Symfony\Component\Translation\TranslatorInterface; */
 
 class SocialBugCRMService {
     /** @var TranslatorInterface */
