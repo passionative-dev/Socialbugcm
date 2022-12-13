@@ -16,10 +16,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $this->content_only = true;
     }
 
-    protected function buildContainer()
-    {
-    }
-
     public function checkAccess()
     {
         $headers = WebserviceRequest::getallheaders();
