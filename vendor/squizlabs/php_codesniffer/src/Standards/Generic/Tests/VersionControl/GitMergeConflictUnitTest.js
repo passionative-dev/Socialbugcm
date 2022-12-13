@@ -10,7 +10,7 @@ if (something === false
 y = 1
   + 2
   - 3;
-
+    
 /*
  * @var string $foo
  */
