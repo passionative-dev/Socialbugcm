@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Socialbug Team <support@mlm-socialbug.com>
+ * @copyright 2020 Km Innovations Inc DBA SocialBug
+ * @license https://www.gnu.org/licenses/gpl-2.0.html
+ */
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
