@@ -16,6 +16,11 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $this->content_only = true;
     }
 
+    protected function buildContainer()
+    {
+        return false;
+    }
+
     public function checkAccess()
     {
         $headers = WebserviceRequest::getallheaders();
@@ -34,6 +39,21 @@ class SocialbugcrmApiModuleFrontController extends Controller
     }
 
     public function postProcess()
+    {
+        return false;
+    }
+
+    public function display()
+    {
+        return false;
+    }
+
+    public function setMedia()
+    {
+        return false;
+    }
+
+    public function initHeader()
     {
         return false;
     }
@@ -70,6 +90,16 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         header('HTTP/1.1 401 Unauthorized');
         die;
+    }
+
+    public function initFooter()
+    {
+        return false;
+    }
+
+    protected function redirect()
+    {
+        return false;
     }
 
     public function helloWorldAction()
