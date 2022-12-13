@@ -6,7 +6,6 @@
  */
 
 if (!defined('_PS_VERSION_')) {
-    
     exit;
 }
 
@@ -124,7 +123,6 @@ class Socialbugcrm extends Module
     public function getTosLink($iso_lang)
     {
         switch ($iso_lang) {
-
             case 'fr':
                 $url = 'https://socialbug.io/conditions-of-use';
 
@@ -146,7 +144,6 @@ class Socialbugcrm extends Module
     public function getPrivacyLink($iso_lang)
     {
         switch ($iso_lang) {
-            
             case 'fr':
                 $url = 'https://socialbug.io/privacy-notice';
 
