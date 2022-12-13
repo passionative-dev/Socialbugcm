@@ -163,7 +163,7 @@ class Socialbugcrm extends Module
 
     public function hookDisplayHeader($params)
     {
-        $customerId = "";
+        $customerId = '';
         $appendHtml = Configuration::get('SOCIALBUGCRM_AppendHtml');
 
         if ($this->context->customer->isLogged(true)) {
@@ -174,7 +174,7 @@ class Socialbugcrm extends Module
             $customerId = $userId.'~'.md5($str);
         }
 
-        $appendHtml = str_replace("%customerId%", $customerId, $appendHtml);
+        $appendHtml = str_replace('%customerId%', $customerId, $appendHtml);
 
         $this->context->controller->registerJavascript(
             sha1($appendHtml),
@@ -185,11 +185,11 @@ class Socialbugcrm extends Module
 
     public function hookModuleRoutes()
     {
-        return array(
-            'module-socialbugcrm-api' => array(
+        return [
+            'module-socialbugcrm-api' => [
                 'controller' => 'api',
                 'rule' => 'socialbugcrm/api{/:module_action}{/:id}',
-                'keywords' => array(
+                'keywords' => [
                     'id' => [
                         'regexp' => '[\d]+',
                         'param' => 'id',
@@ -198,14 +198,14 @@ class Socialbugcrm extends Module
                         'regexp' => '[\w]+',
                         'param' => 'module_action',
                     ],
-                ),
+                ],
                 'params' => [
                     'fc' => 'module',
                     'module' => 'socialbugcrm',
                     'controller' => 'api',
                 ],
-            )
-        );
+            ]
+        ];
     }
 
     private function generateRandomString($length = 10)
@@ -242,8 +242,8 @@ class Socialbugcrm extends Module
                 $r8 = mt_rand(0, 65535);
 
                 $apiKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', $r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8);
-                $date_utc = new \DateTime("now", new \DateTimeZone("UTC"));
-                Configuration::updateValue('SOCIALBUGCRM_CreatedOnUtc', $date_utc->format("Y-m-d H:i:s e"));
+                $date_utc = new \DateTime('now', new \DateTimeZone('UTC'));
+                Configuration::updateValue('SOCIALBUGCRM_CreatedOnUtc', $date_utc->format('Y-m-d H:i:s e'));
             }
 
             Configuration::updateValue('SOCIALBUGCRM_ApiKey', $apiKey);
@@ -349,14 +349,14 @@ class Socialbugcrm extends Module
 
     public function displayForm()
     {
-        $fields_form = array();
-        $fields_form[0]['form'] = array(
+        $fields_form = [];
+        $fields_form[0]['form'] = [
             'submit' => [
                 'title' => $this->l('Launch App'),
                 'class' => 'btn btn-default pull-left',
                 'icon' => 'process-icon-refresh',
             ]
-        );
+        ];
 
         $helper = new HelperForm();
 
