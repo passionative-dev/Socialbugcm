@@ -1,1 +1,2 @@
-﻿
+﻿foo<?php
+echo 'foo';
