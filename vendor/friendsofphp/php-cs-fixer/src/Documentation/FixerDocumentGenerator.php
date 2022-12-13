@@ -79,39 +79,16 @@ final class FixerDocumentGenerator
 
         if (null !== $description) {
             $description = RstUtils::toRst($description);
-            $doc .= <<<RST
-
-
-Description
------------
-
-{$description}
-RST;
         }
 
         $riskyDescription = $definition->getRiskyDescription();
 
         if (null !== $riskyDescription) {
             $riskyDescription = RstUtils::toRst($riskyDescription, 3);
-
-            $doc .= <<<RST
-
-
-.. warning:: Using this rule is risky.
-
-   {$riskyDescription}
-RST;
         }
 
         if ($fixer instanceof ConfigurableFixerInterface) {
-            $doc .= <<<'RST'
-
-
-Configuration
--------------
-RST;
-
-            $configurationDefinition = $fixer->getConfigurationDefinition();
+           $configurationDefinition = $fixer->getConfigurationDefinition();
 
             foreach ($configurationDefinition->getOptions() as $option) {
                 $optionInfo = "``{$option->getName()}``";
@@ -164,14 +141,7 @@ RST;
         $samples = $definition->getCodeSamples();
 
         if (0 !== \count($samples)) {
-            $doc .= <<<'RST'
-
-
-Examples
---------
-RST;
-
-            foreach ($samples as $index => $sample) {
+           foreach ($samples as $index => $sample) {
                 $title = sprintf('Example #%d', $index + 1);
                 $titleLine = str_repeat('~', \strlen($title));
                 $doc .= "\n\n{$title}\n{$titleLine}";
@@ -203,25 +173,10 @@ RST;
 
         if ([] !== $ruleSetConfigs) {
             $plural = 1 !== \count($ruleSetConfigs) ? 's' : '';
-            $doc .= <<<RST
-
-
-Rule sets
----------
-
-The rule is part of the following rule set{$plural}:
-RST;
-
+            
             foreach ($ruleSetConfigs as $set => $config) {
                 $ruleSetPath = $this->locator->getRuleSetsDocumentationFilePath($set);
                 $ruleSetPath = substr($ruleSetPath, strrpos($ruleSetPath, '/'));
-
-                $doc .= <<<RST
-
-
-{$set}
-  Using the `{$set} <./../../ruleSets{$ruleSetPath}>`_ rule set will enable the ``{$name}`` rule
-RST;
 
                 if (null !== $config) {
                     $doc .= " with the config below:\n\n  ``".HelpCommand::toString($config).'``';
@@ -250,12 +205,6 @@ RST;
         usort($fixers, static function (FixerInterface $a, FixerInterface $b): int {
             return strcmp(\get_class($a), \get_class($b));
         });
-
-        $documentation = <<<'RST'
-=======================
-List of Available Rules
-=======================
-RST;
 
         $currentGroup = null;
 
@@ -288,13 +237,6 @@ RST;
             ;
 
             $summary = str_replace('`', '``', $fixer->getDefinition()->getSummary());
-
-            $documentation .= <<<RST
-
-- `{$fixer->getName()} <{$path}>`_{$attributes}
-
-  {$summary}
-RST;
         }
 
         return "{$documentation}\n";
@@ -312,13 +254,6 @@ RST;
                     return $matches['diff'];
                 }
             }
-
-            $error = <<<RST
-
-.. error::
-   Cannot generate diff for code sample #{$sampleNumber} of rule {$ruleName}:
-   the sample is not suitable for current version of PHP (%s).
-RST;
 
             return sprintf($error, PHP_VERSION);
         }
@@ -343,12 +278,5 @@ RST;
         $diff = Preg::replace('/^ $/m', '', $diff);
         $diff = Preg::replace('/\n$/', '', $diff);
         $diff = RstUtils::indent($diff, 3);
-
-        return <<<RST
-
-.. code-block:: diff
-
-   {$diff}
-RST;
     }
 }

@@ -158,7 +158,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         $input_data = null;
 
         if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-            $postresource = fopen(php://input', 'r');
+            $postresource = fopen('php://input', 'r');
             while ($postData = fread($postresource, 1024)) {
                 $input_data .= $postData;
             }
