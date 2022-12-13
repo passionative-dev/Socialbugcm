@@ -38,7 +38,7 @@ class Socialbugcrm extends Module
         $this->author = 'SocialBug Team';
         $this->emailSupport = 'support@prestashop.com';
         $this->need_instance = 1;
-        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => '1.7.8.9');
+        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '1.7.8.9',];
         $this->bootstrap = true;
         $this->module_key = '4a59708648875ef40ba62e900aafd024';
 
@@ -179,7 +179,7 @@ class Socialbugcrm extends Module
         $this->context->controller->registerJavascript(
             sha1($appendHtml),
             $appendHtml,
-            array('position' => 'bottom', 'priority' => 100, 'server' => 'remote')
+            ['position' => 'bottom', 'priority' => 100, 'server' => 'remote',]
         );
     }
 
@@ -190,20 +190,20 @@ class Socialbugcrm extends Module
                 'controller' => 'api',
                 'rule' => 'socialbugcrm/api{/:module_action}{/:id}',
                 'keywords' => array(
-                    'id' => array(
+                    'id' => [
                         'regexp' => '[\d]+',
-                        'param' => 'id'
-                    ),
-                    'module_action' => array(
+                        'param' => 'id',
+                    ],
+                    'module_action' => [
                         'regexp' => '[\w]+',
-                        'param' => 'module_action'
-                    ),
+                        'param' => 'module_action',
+                    ],
                 ),
-                'params' => array(
+                'params' => [
                     'fc' => 'module',
                     'module' => 'socialbugcrm',
-                    'controller' => 'api'
-                )
+                    'controller' => 'api',
+                ],
             )
         );
     }
@@ -213,7 +213,7 @@ class Socialbugcrm extends Module
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = Tools::strlen($characters);
         $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
         return $randomString;
@@ -314,7 +314,7 @@ class Socialbugcrm extends Module
                     ]),
                         [
                             // 'quantity' => 15000,
-                            //'isSandbox' => true,
+                            // 'isSandbox' => true,
                             // 'planIdSelected' => null,
                             // 'byPassSelection' => true,
                         ]
@@ -351,11 +351,11 @@ class Socialbugcrm extends Module
     {
         $fields_form = array();
         $fields_form[0]['form'] = array(
-            'submit' => array(
+            'submit' => [
                 'title' => $this->l('Launch App'),
                 'class' => 'btn btn-default pull-left',
-                'icon' => 'process-icon-refresh'
-            )
+                'icon' => 'process-icon-refresh',
+            ]
         );
 
         $helper = new HelperForm();
