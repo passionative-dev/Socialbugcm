@@ -9,8 +9,6 @@ if (!defined('_PS_VERSION_')) {
 }
 
 require 'vendor/autoload.php';
-use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleVersionException;
-use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleNotInstalledException;
 
 class Socialbugcrm extends Module
 {
