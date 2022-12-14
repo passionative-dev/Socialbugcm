@@ -240,7 +240,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     private function makeAddressData($id_address, $email, $id_lang)
     {
-        $address = new Address((int)$ id_address, $id_lang);
+        $address = new Address((int)$id_address, $id_lang);
         $addressData = new stdClass();
         $addressData->FirstName = $address->firstname;
         $addressData->LastName = $address->lastname;
