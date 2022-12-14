@@ -5,7 +5,6 @@
  * @license https://www.gnu.org/licenses/gpl-2.0.html
  */
 use PrestaShop\PrestaShop\Adapter\ContainerBuilder;
-
 class SocialbugcrmApiModuleFrontController extends Controller
 {
     private $apiKey;
@@ -29,7 +28,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
 
         $api_key = Configuration::get('SOCIALBUGCRM_ApiKey');
-        
+
         return strcasecmp($headers['Api-Key'], $api_key) == 0;
     }
 
