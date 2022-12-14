@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author SocialBug Team <support@mlm-socialbug.com>
  * @copyright 2019 KM Innovations Inc
@@ -30,6 +29,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
 
         $api_key = Configuration::get('SOCIALBUGCRM_ApiKey');
+        
         return strcasecmp($headers['Api-Key'], $api_key) == 0;
     }
 
