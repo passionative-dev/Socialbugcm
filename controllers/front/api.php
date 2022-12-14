@@ -4,6 +4,7 @@
  * @copyright 2019 KM Innovations Inc
  * @license https://www.gnu.org/licenses/gpl-2.0.html
  */
+
 use PrestaShop\PrestaShop\Adapter\ContainerBuilder;
 
 class SocialbugcrmApiModuleFrontController extends Controller
@@ -87,7 +88,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     {
         header('HTTP/1.1 401 Unauthorized');
 
-        die;
+        exit;
     }
 
     public function initFooter()
@@ -240,7 +241,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     private function makeAddressData($id_address, $email, $id_lang)
     {
-        $address = new Address((int)$id_address, $id_lang);
+        $address = new Address((int) $id_address, $id_lang);
         $addressData = new stdClass();
         $addressData->FirstName = $address->firstname;
         $addressData->LastName = $address->lastname;
