@@ -4,22 +4,20 @@
  * @copyright 2019 KM Innovations Inc
  * @license https://www.gnu.org/licenses/gpl-2.0.html
  */
+
 class SocialbugcrmApiModuleFrontController extends Controller
 {
     private $apiKey;
 
-    public function init()
-    {
+    public function init() {
         $this->content_only = true;
     }
 
-    protected function buildContainer()
-    {
+    protected function buildContainer() {
         return false;
     }
 
-    public function checkAccess()
-    {
+    public function checkAccess() {
         $headers = WebserviceRequest::getallheaders();
 
         if (!isset($headers['Api-Key'])) {
@@ -31,33 +29,27 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return strcasecmp($headers['Api-Key'], $api_key) == 0;
     }
 
-    public function viewAccess()
-    {
+    public function viewAccess() {
         return true;
     }
 
-    public function postProcess()
-    {
+    public function postProcess() {
         return false;
     }
 
-    public function display()
-    {
+    public function display() {
         return false;
     }
 
-    public function setMedia()
-    {
+    public function setMedia() {
         return false;
     }
 
-    public function initHeader()
-    {
+    public function initHeader() {
         return false;
     }
 
-    public function initContent()
-    {
+    public function initContent() {
         header('Content-Type: application/json; charset=utf-8');
 
         Context::getContext()->cart = new Cart();
@@ -82,25 +74,21 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
     }
 
-    public function initCursedPage()
-    {
+    public function initCursedPage() {
         header('HTTP/1.1 401 Unauthorized');
 
         exit;
     }
 
-    public function initFooter()
-    {
+    public function initFooter() {
         return false;
     }
 
-    protected function redirect()
-    {
+    protected function redirect() {
         return false;
     }
 
-    public function helloWorldAction()
-    {
+    public function helloWorldAction() {
         echo 1;
     }
 
@@ -125,8 +113,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         echo json_encode($integration);
     }
 
-    public function postStoreInfoAction()
-    {
+    public function postStoreInfoAction() {
         $input_data = null;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -151,8 +138,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         echo $result;
     }
 
-    public function postSaltAction()
-    {
+    public function postSaltAction() {
         $input_data = null;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -177,8 +163,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         echo $result;
     }
 
-    public function getCustomerByEmailAction()
-    {
+    public function getCustomerByEmailAction() {
         $email = (string) Tools::getValue('email', false);
         $id_lang = $this->context->language->id;
 
@@ -194,8 +179,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
     }
 
-    private function makeCustomerData($customer, $id_lang)
-    {
+    private function makeCustomerData($customer, $id_lang) {
         $id_address_s = $this->getAddressIdByAlias($customer->id, 'DefaultShipping');
         $id_address_b = $this->getAddressIdByAlias($customer->id, 'DefaultBilling');
 
@@ -210,8 +194,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $this->makeCustomerDataWithAddress($customer, $id_address_b, $id_address_s, $id_lang);
     }
 
-    private function getAddressIdByAlias($id_customer, $alias)
-    {
+    private function getAddressIdByAlias($id_customer, $alias) {
         if (!$id_customer) {
             return false;
         }
@@ -224,8 +207,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $result;
     }
 
-    private function makeCustomerDataWithAddress($customer, $id_billing_address, $id_shipping_address, $id_lang)
-    {
+    private function makeCustomerDataWithAddress($customer, $id_billing_address, $id_shipping_address, $id_lang) {
         $customerData = new stdClass();
         $customerData->CustomerId = (int) $customer->id;
         $customerData->UserName = $customer->firstname . ' ' . $customer->lastname;
@@ -237,8 +219,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $customerData;
     }
 
-    private function makeAddressData($id_address, $email, $id_lang)
-    {
+    private function makeAddressData($id_address, $email, $id_lang) {
         $address = new Address((int) $id_address, $id_lang);
         $addressData = new stdClass();
         $addressData->FirstName = $address->firstname;
@@ -256,8 +237,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $addressData;
     }
 
-    public function postAddCustomerAction()
-    {
+    public function postAddCustomerAction() {
         $input_json = null;
         $id_lang = $this->context->language->id;
         $found_customer = null;
@@ -282,8 +262,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         echo json_encode($result);
     }
 
-    private function getOrNewCustomer($data)
-    {
+    private function getOrNewCustomer($data) {
         $email = $data['Email'];
 
         $customer = new Customer();
@@ -299,8 +278,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $found_customer;
     }
 
-    private function addNewCustomer($data)
-    {
+    private function addNewCustomer($data) {
         $customer = new Customer();
         $customer->email = $data['Email'];
         $addr_s = $data['ShippingAddress'];
@@ -344,8 +322,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $customer;
     }
 
-    private function getOrNewAddress($addr, $customer)
-    {
+    private function getOrNewAddress($addr, $customer) {
         $addresses = $customer->getSimpleAddresses();
         foreach ($addresses as $address) {
             if ($address['alias'] == 'Default'
@@ -366,8 +343,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
         return $this->addAddress($addr, 'Default', $customer->id);
     }
 
-    private function addAddress($addr, $alias, $customerId = null)
-    {
+    private function addAddress($addr, $alias, $customerId = null) {
         $address = new Address();
 
         $address->alias = $alias;
