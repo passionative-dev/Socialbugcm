@@ -180,7 +180,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     public function getCustomerByEmailAction()
     {
-        $email = Tools::getValue('email', false);
+        $email = (string) Tools::getValue('email', false);
         $id_lang = $this->context->language->id;
 
         $customer = new Customer();
@@ -217,10 +217,10 @@ class SocialbugcrmApiModuleFrontController extends Controller
             return false;
         }
 
-        $result = (int)Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
+        $result = (int) Db::getInstance(_PS_USE_SQL_SLAVE_)->getValue('
             SELECT `id_address`
             FROM `' . _DB_PREFIX_ . 'address`
-            WHERE `id_customer` = ' . $id_customer . ' AND `deleted` = 0 AND `alias` = `' . pSQL($alias) . '`');
+            WHERE `id_customer` = ' . (int) $id_customer . ' AND `deleted` = 0 AND `alias` = `' . pSQL($alias) . '`');
 
         return $result;
     }
@@ -228,7 +228,7 @@ class SocialbugcrmApiModuleFrontController extends Controller
     private function makeCustomerDataWithAddress($customer, $id_billing_address, $id_shipping_address, $id_lang)
     {
         $customerData = new stdClass();
-        $customerData->CustomerId = (int)$customer->id;
+        $customerData->CustomerId = (int) $customer->id;
         $customerData->UserName = $customer->firstname . ' ' . $customer->lastname;
         $customerData->Email = $customer->email;
         $customerData->BillingAddress = $this->makeAddressData($id_billing_address, $customer->email, $id_lang);
@@ -240,14 +240,14 @@ class SocialbugcrmApiModuleFrontController extends Controller
 
     private function makeAddressData($id_address, $email, $id_lang)
     {
-        $address = new Address($id_address, $id_lang);
+        $address = new Address((int)$ id_address, $id_lang);
         $addressData = new stdClass();
         $addressData->FirstName = $address->firstname;
         $addressData->LastName = $address->lastname;
         $addressData->Email = $email;
         $addressData->Company = $address->company;
-        $addressData->CountryId =$address->id_country;
-        $addressData->StateProvinceId = $address->id_state;
+        $addressData->CountryId = (int) $address->id_country;
+        $addressData->StateProvinceId = (int) $address->id_state;
         $addressData->City = $address->city;
         $addressData->Address1 = $address->address1;
         $addressData->Address2 = $address->address2;
@@ -331,7 +331,6 @@ class SocialbugcrmApiModuleFrontController extends Controller
         }
 
         $customer->add();
-
 
         if ($addr_s['FirstName'] != '') {
             $data['ShippingAddress']['Id'] = $this->getOrNewAddress($addr_s, $customer);
